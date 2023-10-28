@@ -5,6 +5,7 @@ const TemplatePage = lazy(() => import('../../components/Layout/Template'))
 const ErrorPage = lazy(() => import('../../pages/403'))
 const DashboardPage = lazy(() => import('../../pages/Dashboard'))
 const TopPage = lazy(() => import('../../pages/Top'))
+const FormPage = lazy(() => import('../../pages/Form'))
 // const UserPage = lazy(() => import('../../pages/Management/User'))
 // const DevicePage = lazy(() => import('../../pages/Management/Device'))
 // const GroupPage = lazy(() => import('../../pages/Management/Group'))
@@ -13,18 +14,36 @@ const TopPage = lazy(() => import('../../pages/Top'))
 // const Setting02Page = lazy(() => import('../../pages/Setting/SettingGroup'))
 // const Setting03Page = lazy(() => import('../../pages/Setting/SettingDevice'))
 
-const authRoutes = [
-
-]
+const authRoutes = []
 const routes = [
-
+  {
+    path: '/',
+    component: <DashboardPage />,
+  },
+  {
+    path: 'top',
+    component: <TopPage />,
+  },
+  {
+    path: 'form',
+    component: <FormPage />,
+  },
 ]
 const Main = forwardRef((props, ref) => {
   return (
     <>
       <Routes ref={ref} {...props}>
         <Route element={<TemplatePage />}>
-          <Route
+          {routes.map((elm, index) => {
+            return (
+              <Route
+                key={index}
+                path={elm.path}
+                element={<SuspenseLoading>{elm.component}</SuspenseLoading>}
+              ></Route>
+            )
+          })}
+          {/* <Route
             path="/"
             element={
               <SuspenseLoading>
@@ -37,7 +56,7 @@ const Main = forwardRef((props, ref) => {
               <SuspenseLoading>
                 <TopPage />
               </SuspenseLoading>
-            }></Route>
+            }></Route> */}
         </Route>
         <Route
           path="/*"

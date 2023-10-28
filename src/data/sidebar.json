@@ -5,44 +5,8 @@
     "childMenu": []
   },
   {
-    "title": "Management",
-    "path": "/management",
-    "childMenu": [
-      {
-        "title": "User",
-        "path": "/user"
-      },
-      {
-        "title": "Device",
-        "path": "/device"
-      },
-      {
-        "title": "Group",
-        "path": "/group"
-      }
-    ]
-  },
-  {
-    "title": "Contact",
-    "path": "/contact",
+    "title": "Form",
+    "path": "/form",
     "childMenu": []
-  },
-  {
-    "title": "Setting",
-    "path": "/setting",
-    "childMenu": [
-      {
-        "title": "Setting 01",
-        "path": "/setting_01"
-      },
-      {
-        "title": "Setting 02",
-        "path": "/setting_02"
-      },
-      {
-        "title": "Setting 03",
-        "path": "/setting_03"
-      }
-    ]
   }
 ]

@@ -1,0 +1,21 @@
+{
+  "autocomplete": [
+    {
+      "value": 1,
+      "label": "title 1"
+    },
+    {
+      "value": 2,
+      "label": "title 2"
+    },
+    {
+      "value": 3,
+      "label": "title 3"
+    },
+    {
+      "value": 4,
+      "label": "title 4"
+    }
+  ],
+  "arrayComplete": ["check1", "check2", "check3"]
+}
