@@ -9,7 +9,7 @@ const Template = () => {
   return (
     <>
       <Navbar></Navbar>
-      <div className='d-flex'>
+      <div className={`d-flex ${styles.custom_template}`}>
         <Sidebar></Sidebar>
         <div className={styles.main_template}>
           <Outlet></Outlet>
