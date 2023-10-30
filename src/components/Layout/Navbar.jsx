@@ -1,11 +1,11 @@
-import { Button } from 'antd'
 import React from 'react'
 import styles from './styles.module.scss'
+import BaseButton from 'components/Base/Button'
 
 const Navbar = () => {
   return (
     <div className={styles.navbar}>
-      <Button type="primary" className={styles.button_logout}>Logout</Button>
+      <BaseButton label="logout"></BaseButton>
     </div>
   )
 }
