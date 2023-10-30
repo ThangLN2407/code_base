@@ -40,7 +40,15 @@ const ValidationYup = () => {
           console.log('Custom onChange event:', e.target.value)
         }}
       />
-
+      <BaseRadio
+        field={formik.getFieldProps('radioOption')}
+        form={formik}
+        label="Select an option"
+        options={radioOptions}
+        customOnChange={(e) => {
+          console.log('Custom onChange event:', e.target.value);
+        }}
+      />
       <BaseButton type="submit" label="submit" />
     </form>
   )
