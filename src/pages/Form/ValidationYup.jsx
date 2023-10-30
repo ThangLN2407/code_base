@@ -7,9 +7,7 @@ import BaseRadio from '../../components/Base/RadioBox'
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Name is required'),
-  email: Yup.string()
-    .required('Email is required')
-    .email('Invalid email format'),
+  email: Yup.string().required('email trong').email('email khong hop le'),
   radioOption: Yup.string().required('Please select a radio option'),
 })
 
@@ -38,14 +36,12 @@ const ValidationYup = () => {
       <BaseInput
         field={formik.getFieldProps('name')}
         form={formik}
-        label="Name"
+        customOnChange={e => {
+          console.log('Custom onChange event:', e.target.value)
+        }}
       />
-      <BaseRadio
-        name="radioOption"
-        label="Select an option"
-        options={radioOptions}
-      />
-      <BaseButton type="submit" label="Submit" />
+
+      <BaseButton type="submit" label="submit" />
     </form>
   )
 }
