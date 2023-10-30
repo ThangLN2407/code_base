@@ -4,11 +4,14 @@ import * as Yup from 'yup'
 import BaseInput from '../../components/Base/Input'
 import BaseButton from '../../components/Base/Button'
 import BaseRadio from '../../components/Base/RadioBox'
+import BaseDatePicker from 'components/Base/DatePicker'
+import dayjs from 'dayjs'
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Name is required'),
   email: Yup.string().required('email trong').email('email khong hop le'),
   radioOption: Yup.string().required('Please select a radio option'),
+  date: Yup.date().required('Date is required'),
 })
 
 const ValidationYup = () => {
@@ -17,6 +20,7 @@ const ValidationYup = () => {
       name: '',
       email: '',
       radioOption: '',
+      date: null,
     },
     validationSchema,
     onSubmit: values => {
@@ -30,6 +34,10 @@ const ValidationYup = () => {
     { value: 'option2', label: 'Option 2' },
     { value: 'option3', label: 'Option 3' },
   ]
+
+  const handleChangeDate = date => {
+    console.log(dayjs(date).format('YYYY/MM/DD'))
+  }
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -45,10 +53,12 @@ const ValidationYup = () => {
         form={formik}
         label="Select an option"
         options={radioOptions}
-        customOnChange={(e) => {
-          console.log('Custom onChange event:', e.target.value);
+        customOnChange={e => {
+          console.log('Custom onChange event:', e.target.value)
         }}
       />
+      <BaseDatePicker name="date" label="Select a date" form={formik} />
+
       <BaseButton type="submit" label="submit" />
     </form>
   )

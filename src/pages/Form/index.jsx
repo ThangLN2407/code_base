@@ -38,7 +38,7 @@ const FormPage = () => {
   return (
     <>
       <ValidationYup></ValidationYup>
-      <div>FormPage</div>
+      {/* <div>FormPage</div>
       <br></br>
       <div>
         <div>button</div>
@@ -86,7 +86,7 @@ const FormPage = () => {
       </div>
       <br></br>
       <div>text input</div>
-      <br></br>
+      <br></br> */}
       {/* <BaseInput onChange={handleChangeInput} /> */}
     </>
   )
