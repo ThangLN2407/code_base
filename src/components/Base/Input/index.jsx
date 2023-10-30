@@ -1,43 +1,29 @@
-import { TextField, TextareaAutosize } from '@mui/material'
 import React from 'react'
-import { debounce } from 'lodash'
-import { useState } from 'react'
+import TextField from '@mui/material/TextField'
 
-const BaseInput = ({
-  isTextArea,
-  onChange,
-  validate,
-  errorMessage,
-  ...props
-}) => {
-  const debouncedOnChange = debounce(handleInputChange, 500)
-  const [error, setError] = useState('')
+const BaseInput = props => {
+  const { field, form, label, customOnChange, ...rest } = props
 
-  const handleInputChange = event => {
-    const inputValue = event.target.value
-    onChange(event)
+  const handleChange = e => {
+    const { target } = e
+    form.setFieldValue(field.name, target.value)
 
-    // Kiểm tra validate
-    if (validate && !validate(inputValue)) {
-      setError(errorMessage)
-    } else {
-      setError('')
+    if (customOnChange) {
+      customOnChange(e)
     }
   }
 
-  return isTextArea ? (
-    <>
-      <TextareaAutosize
-        {...props}
-        onChange={handleInputChange}
-      ></TextareaAutosize>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-    </>
-  ) : (
-    <>
-      <TextField {...props} onChange={debouncedOnChange}></TextField>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-    </>
+  return (
+    <TextField
+      fullWidth
+      label={label}
+      variant="outlined"
+      {...field}
+      {...rest}
+      onChange={handleChange}
+      error={form.touched[field.name] && Boolean(form.errors[field.name])}
+      helperText={form.touched[field.name] && form.errors[field.name]}
+    />
   )
 }
 

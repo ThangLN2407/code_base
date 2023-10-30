@@ -8,6 +8,7 @@ const BaseSwitch = ({ label, value, onChange, ...props }) => {
       control={<Switch color="primary" />}
       label={label}
       onChange={onChange}
+      {...props}
     />
   )
 }

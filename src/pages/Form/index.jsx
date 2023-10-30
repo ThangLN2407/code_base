@@ -5,6 +5,8 @@ import BaseSelect from '../../components/Base/SelectBox'
 import AutocompleteData from '../../data/select-box.json'
 import { MenuItem, Select } from '@mui/material'
 import BaseSwitch from '../../components/Base/Switch'
+import BaseInput from '../../components/Base/Input'
+import ValidationYup from './ValidationYup'
 
 const FormPage = () => {
   const handleClickEvent = e => {
@@ -26,9 +28,16 @@ const FormPage = () => {
     console.log('🤪 ~ file: index.jsx:24 [] -> event : ', event)
     setSelectedOption(event.target.value)
   }
+  const handleChangeInput = event => {
+    console.log(
+      '🚀 ~ file: index.jsx:31 ~ handleChangeInput ~ event:',
+      event.target.value,
+    )
+  }
 
   return (
     <>
+      <ValidationYup></ValidationYup>
       <div>FormPage</div>
       <br></br>
       <div>
@@ -75,6 +84,10 @@ const FormPage = () => {
         <br />
         <BaseSwitch label="select switch" labelPlacement="top" />
       </div>
+      <br></br>
+      <div>text input</div>
+      <br></br>
+      {/* <BaseInput onChange={handleChangeInput} /> */}
     </>
   )
 }

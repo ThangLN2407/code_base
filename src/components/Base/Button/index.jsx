@@ -12,8 +12,8 @@ const BaseButton = ({
 }) => {
   return (
     <Button
-      color={color}
-      variant={variant}
+      color={color ? color : 'primary'}
+      variant={variant ? variant : 'contained'}
       disabled={disabled}
       onClick={onClick}
       {...props}
