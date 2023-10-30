@@ -22,11 +22,15 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-webpack-plugin": "^4.0.1",
     "formik": "^2.4.5",
+    "i18next": "^23.6.0",
+    "i18next-http-backend": "^2.3.1",
     "lint-staged": "^14.0.1",
     "lodash": "^4.17.21",
+    "mini-css-extract-plugin": "^2.7.6",
     "prettier": "^3.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^13.3.1",
     "react-router-dom": "^6.16.0",
     "react-scripts": "5.0.1",
     "sass": "^1.67.0",
@@ -43,7 +47,8 @@
     "prettier": "prettier --write '**/*.{js,jsx}'",
     "postinstall": "husky install",
     "start": "webpack serve --config webpack.config.js --mode development --open --port 3000",
-    "dev": "PORT=3030 react-scripts start"
+    "dev": "PORT=3030 react-scripts start",
+    "local": "webpack-dev-server --env.NODE_ENV=local"
   },
   "eslintConfig": {
     "extends": [

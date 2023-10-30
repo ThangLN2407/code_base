@@ -1,0 +1,39 @@
+@import '../../assets/mixin.scss';
+@import '../../assets/variable.scss';
+
+.relative_box {
+  width: inherit;
+  height: inherit;
+
+  .absolute_box {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    z-index: 10;
+  }
+}
+.temp_logo {
+  background-color: $primary-bg;
+  width: 248px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box_card {
+  width: 37.125rem;
+  padding: 3.75rem 4.063rem;
+
+  .text_sign_in {
+    padding-top: 93px;
+    padding-bottom: 40px;
+    @include font-text(32px, 700, $primary-color);
+  }
+
+  .sign_in_btn {
+    margin-top: 2rem;
+    width: 100%;
+  }
+}

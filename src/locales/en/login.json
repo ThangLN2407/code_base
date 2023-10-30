@@ -1,0 +1,7 @@
+{
+  "sign_in": "Sign In",
+  "email": "Email",
+  "password": "Password",
+  "required": "{{field}} is required",
+  "invalid": "Invalid {{field}}"
+}

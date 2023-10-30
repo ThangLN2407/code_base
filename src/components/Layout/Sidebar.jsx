@@ -6,14 +6,15 @@ import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 const Sidebar = () => {
   const location = useLocation()
-  console.log('location', location);
-  const [subMenuStates, setSubMenuStates] = useState(sideBarData.map(() => false))
+
+  const [subMenuStates, setSubMenuStates] = useState(
+    sideBarData.map(() => false),
+  )
 
   const toggleSubMenu = index => {
-    // const newSubMenuStates = [...subMenuStates]
-    // newSubMenuStates[index] = !newSubMenuStates[index]
-    // setSubMenuStates(newSubMenuStates)
-    const newSubMenuStates = subMenuStates.map((state, i) => (i === index ? !state : false))
+    const newSubMenuStates = subMenuStates.map((state, i) =>
+      i === index ? !state : false,
+    )
     setSubMenuStates(newSubMenuStates)
   }
   const handleSubMenuClick = e => {
@@ -24,11 +25,20 @@ const Sidebar = () => {
     <div className={styles.sidebar}>
       <ul className={styles.list_menu}>
         {sideBarData.map((item, index) => (
-          <li key={index} className={styles.menu} onClick={() => item.childMenu.length > 0 && toggleSubMenu(index)}>
+          <li
+            key={index}
+            className={styles.menu}
+            onClick={() => item.childMenu.length > 0 && toggleSubMenu(index)}
+          >
             <span className={styles.menu_name}>
               {item?.childMenu.length ? (
                 <>
-                  {item.title} {subMenuStates[index] ? <ExpandMoreIcon /> : <KeyboardArrowUpIcon />}
+                  {item.title}{' '}
+                  {subMenuStates[index] ? (
+                    <ExpandMoreIcon />
+                  ) : (
+                    <KeyboardArrowUpIcon />
+                  )}
                 </>
               ) : (
                 <>
@@ -39,8 +49,11 @@ const Sidebar = () => {
 
             {item.childMenu.length > 0 && (
               <ul
-                className={`${styles.list_sub_menu} ${subMenuStates[index] && styles.active_menu}`}
-                onClick={handleSubMenuClick}>
+                className={`${styles.list_sub_menu} ${
+                  subMenuStates[index] && styles.active_menu
+                }`}
+                onClick={handleSubMenuClick}
+              >
                 {item.childMenu.map((item2, index2) => (
                   <li key={index2} className={styles.sub_menu}>
                     <Link to={item2.path}> {item2.title}</Link>

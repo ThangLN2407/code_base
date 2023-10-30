@@ -1,0 +1,6 @@
+@import '../../../assets/mixin.scss';
+@import '../../../assets/variable.scss';
+
+.base_button {
+  background-color: $primary-button-color !important;
+}

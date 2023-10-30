@@ -1,5 +1,6 @@
 import { Button } from '@mui/material'
 import React from 'react'
+import styles from './styles.module.scss'
 
 const BaseButton = ({
   label,
@@ -8,6 +9,7 @@ const BaseButton = ({
   children,
   disabled,
   onClick,
+  className,
   ...props
 }) => {
   return (
@@ -16,6 +18,7 @@ const BaseButton = ({
       variant={variant ? variant : 'contained'}
       disabled={disabled}
       onClick={onClick}
+      className={`${className ? className : ''} ${styles.base_button}`}
       {...props}
     >
       {label}
