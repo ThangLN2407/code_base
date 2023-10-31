@@ -1,10 +1,9 @@
 import axios from 'axios'
-import Configs from '../configs'
-
-const endpoint = `${Configs.API_URL}/api/v1`
+import errors from '../constants/errors'
+import { compareErrResponse } from '../utils/handle_error'
 
 const axiosClient = axios.create({
-  baseURL: endpoint,
+  baseURL: process.env.API_URL,
   headers: {
     Accept: 'application/json',
     'Content-type': 'application/json',
@@ -12,34 +11,42 @@ const axiosClient = axios.create({
   },
 })
 
-// export const GET = (url, params) => {
-//   return axiosClient.get(url, {
-//     params,
-//   })
-// }
+axiosClient.interceptors.request.use(
+  config => {
+    if (!config.headers.Authorization) {
+      const access_token = localStorage.getItem('access_token')
+      if (access_token) {
+        config.headers.Authorization = `Bearer ${access_token}`
+      }
+    }
+    return config
+  },
+  error => Promise.reject(error),
+)
 
-export const GET = async (url, params) => {
-  return await axiosClient.get(url, {
-    headers: {
-      ...axiosClient.headers,
-      Authorization: `Bearer ${params?.token}`,
-    },
-  })
-}
+// Add a response interceptor
+axiosClient.interceptors.response.use(
+  function (response) {
+    if (response && response.data) {
+      return response.data
+    }
+    return response
+  },
+  function (err) {
+    console.log('🚀 ~ file: Api.js:36 ~ err:', err)
+    // Handle error
+    const errResponse = err.response?.data?.error
+    console.log('errResponse', errResponse)
+    // if (
+    //   errResponse &&
+    //   compareErrResponse(errResponse, errors.UNAUTHENTICATED)
+    // ) {
+    //   localStorage.removeItem("access_token");
+    //   window.location.href = "/login";
+    // }
 
-export const POST = async (url, data) => {
-  return await axiosClient.post(url, data?.payload, {
-    headers: { ...axiosClient.headers, Authorization: `Bearer ${data?.token}` },
-  })
-}
+    throw err
+  },
+)
 
-export const PUT = async (url, data) => {
-  return await axiosClient.put(url, data?.payload, {
-    headers: { ...axiosClient.headers, Authorization: `Bearer ${data?.token}` },
-  })
-}
-
-export const DELETE = (url, params) =>
-  axiosClient.get(url, {
-    params,
-  })
+export default axiosClient

@@ -17,14 +17,14 @@ function getAppConfig(env) {
 }
 
 module.exports = env => {
-  const NODE_ENV = (env && env.NODE_ENV) || 'development'
+  const NODE_ENV = (env && env.NODE_ENV) || 'local'
   const IS_DEV = NODE_ENV === 'development' || NODE_ENV === 'local'
-  getAppConfig(NODE_ENV)
+  const appConfig = getAppConfig(NODE_ENV)
 
   process.env.NODE_ENV = NODE_ENV
 
-  // console.log('Node ENV: %s', NODE_ENV)
-  // console.log('Configs: ', getAppConfig(NODE_ENV))
+  console.log('Node ENV: %s', NODE_ENV)
+  console.log('Configs: ', appConfig)
 
   return {
     devtool: IS_DEV ? 'source-map' : false,
@@ -32,7 +32,7 @@ module.exports = env => {
     output: {
       filename: '[name][hash].js',
       path: path.resolve(__dirname, 'build'),
-      publicPath: getAppConfig(NODE_ENV).PUBLIC_PATH,
+      publicPath: appConfig.PUBLIC_PATH,
     },
     optimization: {
       splitChunks: {
@@ -102,57 +102,19 @@ module.exports = env => {
         },
       ],
     },
-    // module: {
-    //   rules: [
-    //     {
-    //       test: /\.(js|jsx)$/,
-    //       exclude: /node_modules/,
-    //       use: {
-    //         loader: 'babel-loader',
-    //         options: {
-    //           presets: ['@babel/preset-env', '@babel/preset-react'],
-    //         },
-    //       },
-    //     },
-    //     {
-    //       test: /\.css$/,
-    //       use: ['style-loader', 'css-loader'],
-    //     },
-    //     {
-    //       test: /\.scss$/,
-    //       use: ['style-loader', 'css-loader', 'sass-loader'],
-    //     },
-    //   ],
-    // },
     plugins: [
-      new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, 'src/index.ejs'),
-        favicon: path.resolve(__dirname, 'src/resources/images/002.png'),
-      }),
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      // new HtmlWebpackPlugin({
+      //   template: path.resolve(__dirname, 'src/index.ejs'),
+      //   // favicon: path.resolve(__dirname, 'src/resources/images/002.png'),
+      // }),
+      // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new MiniCssExtractPlugin({
         filename: '[name][hash].css',
       }),
       new webpack.DefinePlugin({
-        'window._CONFIG': JSON.stringify(getAppConfig(NODE_ENV)),
+        'window._CONFIG': JSON.stringify(appConfig),
       }),
       new webpack.HotModuleReplacementPlugin(),
     ],
-    devServer: {
-      host: '0.0.0.0',
-      useLocalIp: true,
-      compress: true,
-      disableHostCheck: true,
-      hot: true,
-      hotOnly: true,
-      open: true,
-      overlay: true,
-      stats: 'minimal',
-      clientLogLevel: 'warning',
-      contentBase: path.join(__dirname, 'src'),
-      historyApiFallback: true,
-    },
-    stats: 'minimal',
-    mode: IS_DEV ? 'development' : 'production',
   }
 }

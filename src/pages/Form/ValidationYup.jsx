@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import BaseInput from '../../components/Base/Input'
 import BaseButton from '../../components/Base/Button'
 import BaseRadio from '../../components/Base/RadioBox'
-import BaseDatePicker from 'components/Base/DatePicker'
+import BaseDatePicker from '../../components/Base/DatePicker'
 import dayjs from 'dayjs'
 
 const validationSchema = Yup.object({

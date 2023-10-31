@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from './styles.module.scss'
 import sideBarData from '../../data/sidebar.json'
-import { ExpandMoreIcon, KeyboardArrowUpIcon } from '../../utils/Icons'
+import { ExpandMoreIcon, KeyboardArrowUpIcon } from '../../utils/icons'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 const Sidebar = () => {

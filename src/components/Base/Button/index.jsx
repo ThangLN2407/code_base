@@ -14,11 +14,12 @@ const BaseButton = ({
 }) => {
   return (
     <Button
-      color={color ? color : 'primary'}
       variant={variant ? variant : 'contained'}
       disabled={disabled}
       onClick={onClick}
-      className={`${className ? className : ''} ${styles.base_button}`}
+      className={`${className ? className : ''}
+      ${disabled ? '' : styles.base_button}
+      text-capital`}
       {...props}
     >
       {label}

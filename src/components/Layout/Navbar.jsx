@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './styles.module.scss'
-import BaseButton from 'components/Base/Button'
 import { useNavigate } from 'react-router-dom'
+import BaseButton from '../Base/Button'
 
 const Navbar = () => {
   const navigate = useNavigate()

@@ -1,16 +1,20 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import BaseButton from 'components/Base/Button'
-import Card from '../../components/Card'
-import styles from './styles.module.scss'
 import { useTranslation } from 'react-i18next'
-import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import BaseInput from 'components/Base/Input'
+import { useFormik } from 'formik'
+import { loginRequest } from './../../api/login'
+import BaseButton from '../../components/Base/Button'
+import Card from '../../components/Card'
+import BaseInput from '../../components/Base/Input'
+import styles from './styles.module.scss'
 
 const Login = () => {
   const { t } = useTranslation('login')
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -25,9 +29,17 @@ const Login = () => {
       email: '',
     },
     validationSchema,
-    onSubmit: values => {
+    onSubmit: async values => {
       // Handle form submission here
       console.log(values)
+      try {
+        const res = await dispatch(loginRequest({ values }))
+        if (res?.payload?.success) {
+          console.log(res)
+        }
+      } catch (error) {
+        console.error(error)
+      }
     },
   })
 
@@ -44,11 +56,15 @@ const Login = () => {
           <div className={styles.text_sign_in}>{t('sign_in')}</div>
           <form onSubmit={formik.handleSubmit}>
             <div>
-              <label htmlFor="email">{t('email')}</label>
+              <label className="d-block mb-3" htmlFor="email">
+                {t('email')}
+              </label>
               <BaseInput field={formik.getFieldProps('email')} form={formik} />
             </div>
             <div className="mt-4">
-              <label htmlFor="email">{t('password')}</label>
+              <label className="d-block mb-3" htmlFor="email">
+                {t('password')}
+              </label>
               <BaseInput
                 field={formik.getFieldProps('password')}
                 form={formik}

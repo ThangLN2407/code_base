@@ -474,6 +474,9 @@
 .fixed {
   position: fixed;
 }
+.text-capital {
+  text-transform: capitalize;
+}
 
 @mixin font-text($fontSize: 1rem, $fontWeight: 400, $color) {
   font-size: $fontSize;
