@@ -16,6 +16,8 @@ const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  console.log(process.env)
+
   const validationSchema = Yup.object({
     email: Yup.string()
       .required(t('required', { field: t('email') }))
