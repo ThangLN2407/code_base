@@ -1,20 +1,22 @@
-import axiosClient from './API'
+import axiosClient from './Api'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { getError } from './../utils/handle_error'
+import { getError } from '../utils/HandleError'
+import token from '../data/login.json'
 
-// export const login = payloads => POST('/admin/login', payloads)
-export const loginRequest = createAsyncThunk('login', async () => {
+const isSever = process.env.REACT_APP_IS_SERVER
+export const LoginRequest = createAsyncThunk('login', async () => {
   try {
-    const res = await Promise.all([
-      axiosClient({
-        method: 'POST',
-        url: `/admin/login`,
-      }),
-    ])
-    return res
+    if (!isSever) {
+      const res = await Promise.all([
+        axiosClient({
+          method: 'POST',
+          url: `/admin/login`,
+        }),
+      ])
+      return res
+    }
+    return token
   } catch (err) {
-    console.log('🤪 [login/createAsyncThunk] -> err : ', 'color: #e2398d', err)
-
-    // throw getError(err)
+    throw getError(err)
   }
 })

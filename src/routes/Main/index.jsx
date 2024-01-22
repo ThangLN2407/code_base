@@ -1,5 +1,6 @@
-import React, { forwardRef, lazy } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import React, { forwardRef, lazy, useEffect } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import Storage from '../../utils/Storage'
 
 // layout
 const TemplatePage = lazy(() => import('../../components/Layout/Template'))
@@ -13,11 +14,16 @@ const FormPage = lazy(() => import('../../pages/Form'))
 
 // auth page
 const LoginPage = lazy(() => import('../../pages/Authentication/Login'))
+const RegisterPage = lazy(() => import('../../pages/Authentication/Register'))
 
 const authRoutes = [
   {
     path: 'login',
     component: <LoginPage />,
+  },
+  {
+    path: 'register',
+    component: <RegisterPage />,
   },
 ]
 
@@ -36,6 +42,15 @@ const routes = [
   },
 ]
 const Main = forwardRef((props, ref) => {
+  const accessToken = Storage.getItem('access_token')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/login')
+    }
+  }, [])
+
   return (
     <>
       <Routes ref={ref} {...props}>

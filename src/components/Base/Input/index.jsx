@@ -14,16 +14,22 @@ const BaseInput = props => {
   }
 
   return (
-    <TextField
-      fullWidth
-      label={label}
-      variant="outlined"
-      {...field}
-      {...rest}
-      onChange={handleChange}
-      error={form.touched[field.name] && Boolean(form.errors[field.name])}
-      helperText={form.touched[field.name] && form.errors[field.name]}
-    />
+    <>
+      <label className="d-block mb-3" htmlFor={field.name}>
+        {label}
+      </label>
+      <TextField
+        fullWidth
+        label={label}
+        variant="outlined"
+        {...field}
+        {...rest}
+        onChange={handleChange}
+        error={form.touched[field.name] && Boolean(form.errors[field.name])}
+        helperText={form.touched[field.name] && form.errors[field.name]}
+        id={field.name}
+      />
+    </>
   )
 }
 

@@ -1,4 +1,12 @@
-// eslint-disable-next-line no-underscore-dangle
-const Config = { ...window._CONFIG }
+const getAppConfig = env => {
+  const data = require(`../configs/${env}`)
+
+  return {
+    ...data,
+    ENV: env,
+  }
+}
+
+const Config = { ...getAppConfig(process.env.NODE_ENV) }
 
 export default Config

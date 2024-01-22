@@ -1,31 +1,37 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { handleFulfilled, handlePending, handleRejected } from './handleState'
-import { loginRequest } from '../api/login'
+import { LoginRequest } from '../api/login'
+import Storage from '../utils/Storage'
 
-const initialState = {}
+const initialState = {
+  isLogin: false,
+}
 
-export const loginSlice = createSlice({
+export const LoginSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {},
   extraReducers: builder => {
     // Login
-    builder.addCase(loginRequest.pending, state => {
-      handlePending(state)
+    builder.addCase(LoginRequest.pending, state => {
+      state.isLogin = false
     })
-    builder.addCase(loginRequest.fulfilled, (state, action) => {
+    builder.addCase(LoginRequest.fulfilled, (state, action) => {
+      state.isLogin = true
       const res = action.payload.data
-      console.log('🚀 ~ file: index.js:21 ~ builder.addCase ~ res:', res)
-      handleFulfilled(state)
+
+      if (res?.success) {
+        Storage.setItem('access_token', res.data.access_token)
+      }
+      return true
     })
-    builder.addCase(loginRequest.rejected, state => {
-      handleRejected(state)
+    builder.addCase(LoginRequest.rejected, state => {
+      state.isLogin = false
     })
   },
 })
 
-const { reducer: loginReducer } = loginSlice
+const { reducer: LoginReducer } = LoginSlice
 
 // export const {} = loginSlice.actions
 
-export default loginReducer
+export default LoginReducer

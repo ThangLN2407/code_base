@@ -1,4 +1,5 @@
 {
   "required": "{{field}} is required",
-  "invalid": "Invalid {{field}}"
+  "invalid": "Invalid {{field}}",
+  "network": "Network error"
 }

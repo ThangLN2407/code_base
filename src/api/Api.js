@@ -1,9 +1,10 @@
 import axios from 'axios'
 import errors from '../constants/errors'
-import { compareErrResponse } from '../utils/handle_error'
+import { compareErrResponse } from '../utils/HandleError'
+import Config from '../configs'
 
 const axiosClient = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: Config.API_URL,
   headers: {
     Accept: 'application/json',
     'Content-type': 'application/json',
@@ -33,17 +34,15 @@ axiosClient.interceptors.response.use(
     return response
   },
   function (err) {
-    console.log('🚀 ~ file: Api.js:36 ~ err:', err)
     // Handle error
     const errResponse = err.response?.data?.error
-    console.log('errResponse', errResponse)
-    // if (
-    //   errResponse &&
-    //   compareErrResponse(errResponse, errors.UNAUTHENTICATED)
-    // ) {
-    //   localStorage.removeItem("access_token");
-    //   window.location.href = "/login";
-    // }
+    if (
+      errResponse &&
+      compareErrResponse(errResponse, errors.UNAUTHENTICATED)
+    ) {
+      localStorage.removeItem('access_token')
+      window.location.href = '/login'
+    }
 
     throw err
   },
